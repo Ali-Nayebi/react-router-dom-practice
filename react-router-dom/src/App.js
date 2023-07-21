@@ -1,24 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+// Routes component wrap around our individual or group of route componnts which each define a path to a different page in our website.
+// every Route needs a path which is like a url that defines it's location and the component that is going trough that path is defined in the element.
+// the root path of the application is sinmple slash
+import "./App.css";
+import { Home } from "./pages/Home";
+import { BookList } from "./pages/BookList";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/books" element={<BookList />} />
+    </Routes>
   );
 }
 
