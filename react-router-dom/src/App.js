@@ -4,6 +4,7 @@ import { Home } from "./pages/Home";
 import { BookList } from "./pages/BookList";
 import { Book } from "./pages/Book";
 import { NewBook } from "./pages/NewBook";
+import { NotFound } from "./pages/NotFound";
 // Routes component wrap around our individual or group of route components which each define a path to a different page in our website.
 // every Route needs a path which is like a url that defines it's location and the component that is going trough that path is defined in the element.
 // the root path of the application is sinmple slash
@@ -29,7 +30,9 @@ function App() {
         <Route path="/books" element={<BookList />} />
         <Route path="/books/:id" element={<Book />} />
         <Route path="/books/new" element={<NewBook />} />
-        {/* these last two routes tecknically match beacause new can be a id so how does react router know which one to use, well back before version 6 react-router used to go top to bottom and match the first one but in version 6 react router first matches all the hard coded routes and then if nothing marches goes trough the dinamic Routes */}
+        {/* these last two routes technically match beacause new can be a id so how does react router know which one to use, well back before version 6 react-router used to go top to bottom and match the first one but in version 6 react router first matches all the hard coded routes and then if nothing marches goes trough the dinamic Routes */}
+        <Route path="*" element={<NotFound />} />
+        {/* the star symbol matches with everything so its usefull to create an error page with this path so if no other routes matched with the url it goes to the not found page with the star symbol route */}
       </Routes>
     </>
   );
