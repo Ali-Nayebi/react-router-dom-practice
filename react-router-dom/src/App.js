@@ -5,16 +5,17 @@ import { BookList } from "./pages/BookList";
 import { Book } from "./pages/Book";
 import { NewBook } from "./pages/NewBook";
 import { NotFound } from "./pages/NotFound";
-// Routes component wrap around our individual or group of route components which each define a path to a different page in our website.
-// every Route needs a path which is like a url that defines it's location and the component that is going trough that path is defined in the element.
-// the root path of the application is sinmple slash
-// we can also do navigation with react router and to do that we use Link component
-// Link component essentionaly gonna replace all the anchor tags in our application
-// Link component is technically an anchor tag but it's going to be used within react-router to automatically swap things in the application without refreshing the entire page
-// we can define a route that has a custome parameter inside of it which is going to be dinamic and able to be changed eg /books/:id this says that we have a url that goes /books and then there is something after it, in this case a id.
+import { BookLayout } from "./BookLayout";
+
 function App() {
   return (
     <>
+      <Routes location="/books">
+        <Route path="/books" element={<h1>Extra Content</h1>} />
+      </Routes>
+      {/* we can have multiple Routes in our applicaton we dont need to have just one. which is usefull when we want to show extra content based on a route that is different from our main content */}
+      {/* so any time that we are on /books route it will render the /books Route above and the one at the bottom of the page */}
+      {/* another thing that we can do when we have multiple Routes is to hard code our location now it doesnt matter what url i go to by hard coding our location its always going to render */}
       <nav>
         <ul>
           <li>
@@ -26,13 +27,17 @@ function App() {
         </ul>
       </nav>
       <Routes>
+        {/* home page does not render BookLayout because its not in the /books parent route so the outlet doesnt show here */}
         <Route path="/" element={<Home />} />
-        <Route path="/books" element={<BookList />} />
-        <Route path="/books/:id" element={<Book />} />
-        <Route path="/books/new" element={<NewBook />} />
-        {/* these last two routes technically match beacause new can be a id so how does react router know which one to use, well back before version 6 react-router used to go top to bottom and match the first one but in version 6 react router first matches all the hard coded routes and then if nothing marches goes trough the dinamic Routes */}
+        {/* we created a page called bookLayout and passed it to the parent books route so that the list of different book will always be shown */}
+        {/* but now the children routes are not showing in the page,for them to show up we need to define a component called outlet in our bookLayout */}
+        <Route path="/books" element={<BookLayout />}>
+          <Route index element={<BookList />} />
+          <Route path=":id" element={<Book />} />
+          <Route path="new" element={<NewBook />} />
+        </Route>
+        {/* we can nest Routes inside a parent Route and this nesting makes it really easy to combine Routes together eg here every Route that starts with /books can be nested inside /books Route and for rendering our original /books Route we create a Route with just a index parameter */}
         <Route path="*" element={<NotFound />} />
-        {/* the star symbol matches with everything so its usefull to create an error page with this path so if no other routes matched with the url it goes to the not found page with the star symbol route */}
       </Routes>
     </>
   );
