@@ -1,21 +1,33 @@
-import { Link, Route, Routes } from "react-router-dom";
+import { NavLink, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Home } from "./pages/Home";
 import { NotFound } from "./pages/NotFound";
 import { BookRoutes } from "./BookRoutes";
-
+// NavLink is just like Link it has all the same properties but it allows you to do specific things withthe active state of a Link so it has a few additional properties
+// classname style and children properties allows you to take in a function and this function have the is active class
+// the intresting thing about NavLink is that by default it applies an active class so if we import a css page that has the active class to color red the links that we didnt specified is going to be red when active.
 function App() {
   return (
     <>
       <nav>
         <ul>
           <li>
-            <Link to="/" replace>Home</Link>
-            {/* replace property: this will replace the url that we are on when we click this link si the last url will be deleted from the history the replace property is usefull in the log in page so when the user clicks the back button we dont want them to go back to the log in page  */}
+            <NavLink
+              style={({ isActive }) => {
+                return isActive ? { color: "red" } : {};
+              }}
+              to="/"
+            >
+              {({ isActive }) => {
+                return isActive ? "Active Home" : "Home";
+              }}
+            </NavLink>
+            {/* isActive is going to be true when we are in this link */}
+            {/* we can also pass the isActive trough a className so when its acvie it uses that className */}
+            {/* we can also pass a function down as a child and that function can have the isActive property too */}
           </li>
           <li>
-            <Link to="/books" reloadDocument>Books</Link>
-            {/* like we said react-router just changes the content inside the routes but with reloadDocument property its going to reload the entire page and not just the section that is changing */}
+            <NavLink to="/books">Books</NavLink>
           </li>
         </ul>
       </nav>
