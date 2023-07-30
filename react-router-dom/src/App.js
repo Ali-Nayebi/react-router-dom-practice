@@ -1,11 +1,7 @@
 import { Link, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Home } from "./pages/Home";
-import { BookList } from "./pages/BookList";
-import { Book } from "./pages/Book";
-import { NewBook } from "./pages/NewBook";
 import { NotFound } from "./pages/NotFound";
-import { BookLayout } from "./BookLayout";
 import { BookRoutes } from "./BookRoutes";
 
 function App() {
@@ -14,7 +10,8 @@ function App() {
       <nav>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/" replace>Home</Link>
+            {/* replace property: this will replace the url that we are on when we click this link si the last url will be deleted from the history */}
           </li>
           <li>
             <Link to="/books">Books</Link>
