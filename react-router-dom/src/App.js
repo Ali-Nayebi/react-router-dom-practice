@@ -11,10 +11,11 @@ function App() {
         <ul>
           <li>
             <Link to="/" replace>Home</Link>
-            {/* replace property: this will replace the url that we are on when we click this link si the last url will be deleted from the history */}
+            {/* replace property: this will replace the url that we are on when we click this link si the last url will be deleted from the history the replace property is usefull in the log in page so when the user clicks the back button we dont want them to go back to the log in page  */}
           </li>
           <li>
-            <Link to="/books">Books</Link>
+            <Link to="/books" reloadDocument>Books</Link>
+            {/* like we said react-router just changes the content inside the routes but with reloadDocument property its going to reload the entire page and not just the section that is changing */}
           </li>
         </ul>
       </nav>
